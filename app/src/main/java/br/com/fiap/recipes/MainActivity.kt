@@ -106,18 +106,14 @@ fun InicialScreew(){
             ) {
                 Text(
                     text = "UNLIMITED PREMIUM RECIPES",
-                    fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.secondary,
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.titleSmall
+
 
                 )
                 Text(
                     text = "Start Cooking",
-                    fontSize = 64.sp,
-                    lineHeight = 64.sp,
-                    fontFamily = poppinsFamily,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.displayLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(top = 8.dp, bottom = 16.dp)
