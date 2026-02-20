@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -105,14 +106,14 @@ fun InicialScreew(){
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "UNLIMITED PREMIUM RECIPES",
+                    text = stringResource(R.string.unlimited_recipes),
                     color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.titleSmall
 
 
                 )
                 Text(
-                    text = "Start Cooking",
+                    text = stringResource(R.string.app_title),
                     style = MaterialTheme.typography.displayLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
@@ -133,7 +134,7 @@ fun InicialScreew(){
                             .size(width = 128.dp, height = 48.dp)
                     ) {
                         Text(
-                            text = "Login",
+                            text = stringResource(R.string.button_login),
                             color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
@@ -154,7 +155,7 @@ fun InicialScreew(){
                             .height(48.dp)
                     ) {
                         Text(
-                            text = "Sign up",
+                            text = stringResource(R.string.button_singup),
                             color = MaterialTheme.colorScheme.onTertiary,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
