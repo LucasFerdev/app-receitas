@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Receitas</string>
+    <string name="app_title">Comece a Cozinhar</string>
+    <string name="unlimited_recipes">RECEITAS PREMIUM ILIMITADAS</string>
+    <string name="button_login">Entrar</string>
+    <string name="button_signup">Cadastrar-se</string>
+</resources>
