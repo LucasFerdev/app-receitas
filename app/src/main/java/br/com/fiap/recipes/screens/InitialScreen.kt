@@ -42,32 +42,10 @@ fun InicialScreen(){
                 color = MaterialTheme.colorScheme.background
             )
     ){
-        Card(
-            modifier = Modifier
-                .width(160.dp)
-                .height(85.dp)
-                .align(Alignment.TopEnd),
-            shape = RoundedCornerShape(
-                bottomStart = 85.dp
-            ),
-            colors = CardDefaults
-                .cardColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-        ){ }
-        Card(
-            modifier = Modifier
-                .width(160.dp)
-                .height(85.dp)
-                .align(Alignment.BottomStart),
-            shape = RoundedCornerShape(
-                topEnd = 85.dp
-            ),
-            colors = CardDefaults
-                .cardColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
-        ){ }
+        // CARDS POSITION
+        TopEndCard(modifier = Modifier.align(Alignment.TopEnd))
+        BottomStarCard(modifier = Modifier.align(alignment = Alignment.BottomStart))
+
         Column (
             modifier = Modifier
                 .padding(16.dp)
