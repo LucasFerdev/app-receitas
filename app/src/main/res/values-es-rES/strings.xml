@@ -4,4 +4,6 @@
     <string name="unlimited_recipes">RECETAS PREMIUM ILIMITADAS</string>
     <string name="button_login">Iniciar sesión</string>
     <string name="button_signup">Registrarse</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="create_account">Create a new account</string>
 </resources>

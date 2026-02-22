@@ -4,4 +4,6 @@
     <string name="unlimited_recipes">UNLIMITED PREMIUM RECIPES</string>
     <string name="button_login">Login</string>
     <string name="button_signup">Sign Up</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create a new account</string> \\ TRADUZIR PARA OS OUTROS IDIOMAS
 </resources>
