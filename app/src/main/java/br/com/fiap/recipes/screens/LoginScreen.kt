@@ -63,6 +63,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             LoginTitle()
+            Spacer(modifier = Modifier.height(64.dp))
             LoginForm()
         }
     }
@@ -85,7 +86,7 @@ fun LoginTitle(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(32.dp)
+
     ){
         Text(
             text = stringResource(R.string.login),
