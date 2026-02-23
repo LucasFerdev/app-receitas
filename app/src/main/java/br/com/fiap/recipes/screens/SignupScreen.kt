@@ -2,10 +2,12 @@ package br.com.fiap.recipes.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -37,8 +39,40 @@ import br.com.fiap.recipes.ui.theme.RecipesTheme
 
 @Composable
 fun SignupScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = MaterialTheme.colorScheme.background
+            )
+    ){
+        TopEndCard(modifier = Modifier.align(alignment = Alignment.TopEnd))
+        BottomStarCard(modifier = Modifier.align(alignment = Alignment.BottomStart))
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(alignment = Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            TitleComponent()
+            Spacer(modifier = Modifier.height(48.dp))
+            UserImage()
+            SignupUserForm()
+        }
+    }
+}
 
-
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun SignupScreenPreview() {
+    RecipesTheme {
+        SignupScreen()
+    }
+    
 }
 
 @Composable
@@ -51,13 +85,13 @@ fun TitleComponent(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.sign_up),
             color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.displayLarge
+            style = MaterialTheme.typography.titleLarge
 
         )
         Text(
             text = stringResource(R.string.create_account),
             color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.displaySmall
+            style = MaterialTheme.typography.titleSmall
         )
     }
 }
@@ -84,7 +118,7 @@ fun UserImage(modifier: Modifier = Modifier) {
             painter = painterResource(R.drawable.user),
             contentDescription = stringResource(R.string.user_image),
             modifier = Modifier
-                .size(110.dp)
+                .size(100.dp)
                 .align(alignment = Alignment.Center)
         )
         Icon(

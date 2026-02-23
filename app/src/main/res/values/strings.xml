@@ -16,5 +16,11 @@
     <string name="password_icon">Password Icon</string>
     <string name="remove_red_eye_icon">Remove red eye Icon</string>
     <string name="create_a_new_account">Create a new account</string>
+    <string name="login">Login</string>
+    <string name="please_sign_in_to_continue">Please, sign in to continue</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="your_e_mail_Login">Your e-mail</string>
+    <string name="your_password_login">Your password</string>
+    <string name="don_t_have_an_account">Don\'t have an account</string>
     \\ TRADUZIR PARA OS OUTROS IDIOMAS
 </resources>

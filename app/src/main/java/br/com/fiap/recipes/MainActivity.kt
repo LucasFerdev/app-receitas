@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import br.com.fiap.recipes.screens.InicialScreen
 import br.com.fiap.recipes.screens.InicialScreen
+import br.com.fiap.recipes.screens.LoginForm
+import br.com.fiap.recipes.screens.LoginScreen
+import br.com.fiap.recipes.screens.SignupScreen
 import br.com.fiap.recipes.ui.theme.RecipesTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +17,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RecipesTheme {
-                InicialScreen()
+                //InicialScreen()
+                //SignupScreen()
+                LoginScreen()
             }
         }
     }
