@@ -12,12 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -47,7 +49,18 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         Scaffold(
             topBar = { MyTopAppBar()},
             bottomBar = {MyBottomAppBar()},
-            floatingActionButton = {}
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {},
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.primary
+                ) {
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add button"
+                    )
+                }
+            }
         ) { paddingValues ->
             Column(
                 modifier = Modifier
@@ -72,8 +85,8 @@ private fun HomeScreenPreview() {
 fun MyTopAppBar(modifier: Modifier = Modifier) {
     TopAppBar(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
+            .fillMaxWidth(),
+            //.height(60.dp),
         title = {
             Row(
                 modifier = Modifier
@@ -133,8 +146,8 @@ data class BottomNavigationItem(
 fun MyBottomAppBar(modifier: Modifier = Modifier) {
     val items = listOf(
         BottomNavigationItem("Home", icon = Icons.Default.Home),
-        BottomNavigationItem("Home", icon = Icons.Default.Favorite),
-        BottomNavigationItem("Home", icon = Icons.Default.Person),
+        BottomNavigationItem("Favorite", icon = Icons.Default.Favorite),
+        BottomNavigationItem("Profile", icon = Icons.Default.Person),
     )
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.tertiary
