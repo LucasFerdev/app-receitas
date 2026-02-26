@@ -58,4 +58,8 @@ dependencies {
 
     //  MAIS ICONES
     implementation("androidx.compose.material:material-icons-extended-android:1.7.8")
+
+    // Navegation Compose dependence
+    implementation(libs.androidx.navigation.compose)
+
 }

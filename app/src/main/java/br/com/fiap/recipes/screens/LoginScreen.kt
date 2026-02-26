@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -33,11 +32,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.recipes.R
+import br.com.fiap.recipes.navigation.Destination
 import br.com.fiap.recipes.ui.theme.RecipesTheme
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +66,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         ){
             LoginTitle()
             Spacer(modifier = Modifier.height(64.dp))
-            LoginForm()
+            LoginForm(navController)
         }
     }
 }
@@ -75,7 +77,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun LoginScreenPreview() {
     RecipesTheme {
-        LoginScreen()
+        LoginScreen(rememberNavController())
     }
 }
 
@@ -110,7 +112,7 @@ private fun LoginTitlePreview() {
 }
 
 @Composable
-fun LoginForm(modifier: Modifier = Modifier) {
+fun LoginForm(navController: NavHostController) {
     Column() {
         OutlinedTextField(
             value = "",
@@ -181,7 +183,9 @@ fun LoginForm(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = {},
+            onClick = {
+
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -204,7 +208,10 @@ fun LoginForm(modifier: Modifier = Modifier) {
                 color = MaterialTheme.colorScheme.primary
             )
             TextButton(
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(Destination.SignupScreen.route)
+                }
             ) {
                 Text(
                     text = stringResource(R.string.sign_up),
@@ -222,6 +229,6 @@ fun LoginForm(modifier: Modifier = Modifier) {
 @Composable
 private fun LoginFormScreen() {
     RecipesTheme {
-        LoginForm()
+        LoginForm(rememberNavController())
     }
 }
