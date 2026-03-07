@@ -273,7 +273,7 @@ fun ContentScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(categories){ category ->
-                CategoryItem(category)
+                CategoryItem(category = category, onClick = {})
             }
         }
         Text(
