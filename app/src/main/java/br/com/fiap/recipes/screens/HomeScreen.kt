@@ -56,6 +56,7 @@ import br.com.fiap.recipes.ui.theme.RecipesTheme
 import br.com.fiap.recipes.R
 import br.com.fiap.recipes.components.CategoryItem
 import br.com.fiap.recipes.repository.getAllCategories
+import br.com.fiap.recipes.repository.getAllRecipes
 
 @Composable
 fun HomeScreen(navController: NavController, email: String?) {
@@ -203,6 +204,9 @@ fun ContentScreen(modifier: Modifier = Modifier) {
     // variável que vai receber a lista de categorias
     val categories = getAllCategories()
 
+    // variável que vai  armazenar a lista de receitas
+
+
     Column(
         modifier =  modifier
             .fillMaxSize()
@@ -276,6 +280,11 @@ fun ContentScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         )
+        LazyRow() {
+            items(items(getAllRecipes())){
+
+            }
+        }
     }
 }
 
