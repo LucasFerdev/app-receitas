@@ -284,6 +284,6 @@ private fun CategoryRecipePreview() {
 @Composable
 private fun CategoryRecipeScreenPreview() {
     RecipesTheme {
-        CategoryRecipeScreen(1000)
+        CategoryRecipeScreen(5000)
     }
 }

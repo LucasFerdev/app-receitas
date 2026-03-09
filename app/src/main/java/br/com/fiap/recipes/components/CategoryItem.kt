@@ -32,7 +32,7 @@ fun CategoryItem(
         modifier = Modifier
             .width(90.dp)
             .clickable(
-                onClick = {}
+                onClick = onClick
             )
     ) {
         Card(

@@ -58,6 +58,7 @@ import br.com.fiap.recipes.ui.theme.RecipesTheme
 import br.com.fiap.recipes.R
 import br.com.fiap.recipes.components.CategoryItem
 import br.com.fiap.recipes.components.RecipeItem
+import br.com.fiap.recipes.navigation.Destination
 import br.com.fiap.recipes.repository.getAllCategories
 import br.com.fiap.recipes.repository.getAllRecipes
 
@@ -84,7 +85,10 @@ fun HomeScreen(navController: NavController, email: String?) {
                 }
             }
         ) { paddingValues ->
-            ContentScreen(modifier = Modifier.padding(paddingValues))
+            ContentScreen(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController
+            )
         }
     }
 }
@@ -202,7 +206,10 @@ private fun MyBottomAppBarPreview() {
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier) {
+fun ContentScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
 
     // variável que vai receber a lista de categorias
     val categories = getAllCategories()
@@ -273,7 +280,14 @@ fun ContentScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(categories){ category ->
-                CategoryItem(category = category, onClick = {})
+                CategoryItem(
+                    category = category, onClick = {
+                    navController.navigate(
+                        route = Destination
+                            .CategoryRecipeScreen
+                            .createRoute(categoryId = category.id)
+                    )
+                })
             }
         }
         Text(
@@ -304,7 +318,7 @@ fun ContentScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun ContentScreenPreview() {
     RecipesTheme {
-        ContentScreen()
+        ContentScreen(navController = rememberNavController())
     }
 }
 
