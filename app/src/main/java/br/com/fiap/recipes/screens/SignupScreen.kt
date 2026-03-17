@@ -1,6 +1,7 @@
 package br.com.fiap.recipes.screens
 
 import android.content.res.Configuration
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Person
@@ -37,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -170,6 +173,22 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         mutableStateOf("")
     }
 
+    // Variáveis de esta para verificar se os dados estão corretos
+    var isNameError by remember { mutableStateOf(false) }
+    var isEmailError by remember { mutableStateOf(false) }
+    var isPasswordError by remember { mutableStateOf(false) }
+
+    // Variável de estado para controlar a exibição da mensagem de erro
+    var showDialogError by remember { mutableStateOf(false) }
+
+    // Função para verificar se os dados estão corretos
+    fun validate(): Boolean{
+        isNameError = name.length < 3
+        isEmailError = email.length <3 || Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        isPasswordError = password.length < 3
+        return !isNameError && !isEmailError && !isPasswordError
+    }
+
     // Criar uma instancia do SharedPreferenceUserRepository
     val userRepository = SharedPreferenceUserRepository(LocalContext.current)
 
@@ -204,7 +223,28 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
                     contentDescription = stringResource(R.string.person_icon), // TRADUZIR PARA OUTROS IDIOMAS
                     tint = MaterialTheme.colorScheme.tertiary
                 )
+            },
+            isError = isNameError,
+            trailingIcon = {
+                if (isNameError){
+                    Icon(
+                        imageVector = Icons.Default.Error,
+                        contentDescription = "Error",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            supportingText = {
+                if (isNameError){
+                    Text(
+                        text = "Name must be at least 3 characters",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.End
+                    )
+                }
             }
+
         )
         //  CAIXA DE TEXTO PARA E-MAIL DO USUÁRIO
         OutlinedTextField(
@@ -232,6 +272,26 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
                     contentDescription = stringResource(R.string.email_icon), // TRADUZIR PARA OUTROS IDIOMAS
                     tint = MaterialTheme.colorScheme.tertiary
                 )
+            },
+            isError = isEmailError,
+            trailingIcon = {
+                if (isEmailError){
+                    Icon(
+                        imageVector = Icons.Default.Error,
+                        contentDescription = "Error",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            supportingText = {
+                if (isEmailError){
+                    Text(
+                        text = "Email must be at least 3 characters",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.End
+                    )
+                }
             }
         )
         //  CAIXA DE TEXTO PARA SENHA DO USUÁRIO
@@ -261,13 +321,33 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
                     tint = MaterialTheme.colorScheme.tertiary
                 )
             },
+            isError = isPasswordError,
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.RemoveRedEye,
-                    contentDescription = stringResource(R.string.remove_red_eye_icon), // TRADUZIR PARA OUTROS IDIOMAS
-                    tint = MaterialTheme.colorScheme.tertiary
-                )
+                if (isPasswordError){
+                    Icon(
+                        imageVector = Icons.Default.Error,
+                        contentDescription = "Error",
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            supportingText = {
+                if (isPasswordError){
+                    Text(
+                        text = "Passoword must be at least 3 characters",
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.End
+                    )
+                }
             }
+//            trailingIcon = {
+//                Icon(
+//                    imageVector = Icons.Default.RemoveRedEye,
+//                    contentDescription = stringResource(R.string.remove_red_eye_icon), // TRADUZIR PARA OUTROS IDIOMAS
+//                    tint = MaterialTheme.colorScheme.tertiary
+//                )
+//            }
         )
         // BOTÃO CREATE ACCOUNT
         Spacer(modifier = Modifier.height(32.dp))
