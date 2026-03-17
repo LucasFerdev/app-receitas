@@ -27,9 +27,14 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.fiap.recipes.R
+import br.com.fiap.recipes.model.User
+import br.com.fiap.recipes.repository.SharedPreferenceUserRepository
 import br.com.fiap.recipes.ui.theme.RecipesTheme
 
 @Composable
@@ -47,7 +54,7 @@ fun SignupScreen(navController: NavController) {
             .background(
                 color = MaterialTheme.colorScheme.background
             )
-    ){
+    ) {
         TopEndCard(modifier = Modifier.align(alignment = Alignment.TopEnd))
         BottomStarCard(modifier = Modifier.align(alignment = Alignment.BottomStart))
         Column(
@@ -68,22 +75,23 @@ fun SignupScreen(navController: NavController) {
 @Preview(
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO)
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun SignupScreenPreview() {
     RecipesTheme {
         SignupScreen(rememberNavController())
     }
-    
+
 }
 
 @Composable
 fun TitleComponent(modifier: Modifier = Modifier) {
-    Column (
+    Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
-    ){
+    ) {
         Text(
             text = stringResource(R.string.sign_up),
             color = MaterialTheme.colorScheme.primary,
@@ -115,7 +123,7 @@ fun UserImage(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .size(120.dp)
-    ){
+    ) {
         Image(
             painter = painterResource(R.drawable.user),
             contentDescription = stringResource(R.string.user_image),
@@ -146,6 +154,25 @@ private fun UserImagePreview() {
 
 @Composable
 fun SignupUserForm(modifier: Modifier = Modifier) {
+
+    // Variáveis de estado para controlar
+    // os valores exibidos nos OutlinedTextFields
+
+    var name by remember {
+        mutableStateOf("")
+    }
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    var password by remember {
+        mutableStateOf("")
+    }
+
+    // Criar uma instancia do SharedPreferenceUserRepository
+    val userRepository = SharedPreferenceUserRepository(LocalContext.current)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -153,8 +180,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
     ) {
         //  CAIXA DE TEXTO PARA NOME DO USUÁRIO
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = name,
+            onValueChange = {
+                name = it
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -179,8 +208,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         )
         //  CAIXA DE TEXTO PARA E-MAIL DO USUÁRIO
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = {
+                email = it
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -205,8 +236,10 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         )
         //  CAIXA DE TEXTO PARA SENHA DO USUÁRIO
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = {
+                password = it
+            },
             modifier = Modifier
                 .fillMaxWidth(),
             label = {
@@ -239,7 +272,15 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         // BOTÃO CREATE ACCOUNT
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = {},
+            onClick = {
+                userRepository.saveUser(
+                    User(
+                        name = name,
+                        password = password,
+                        email = email,
+                    )
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
