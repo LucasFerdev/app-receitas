@@ -353,13 +353,17 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             onClick = {
-                userRepository.saveUser(
-                    User(
-                        name = name,
-                        password = password,
-                        email = email,
-                    )
-                )
+                    if(validate()){
+                        userRepository.saveUser(
+                            User(
+                                name = name,
+                                password = password,
+                                email = email
+                            )
+                        )
+                    } else {
+                        showDialogError = true
+                    }
             },
             modifier = Modifier
                 .fillMaxWidth()
