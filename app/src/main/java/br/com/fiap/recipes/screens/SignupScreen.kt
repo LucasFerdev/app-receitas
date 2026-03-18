@@ -21,12 +21,14 @@ import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -375,6 +377,30 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.labelMedium
             )
         }
+    }
+    // caixa de diálogo de sucesso
+
+
+    // caixa de diálogo de erro
+    if (showDialogError){
+        AlertDialog(
+            onDismissRequest = { showDialogError = false },
+            title = {
+                Text(text = "Error")
+            },
+            text = {
+                Text(text = "Please fill in all fields correctly")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDialogError = false
+                    }
+                ){
+                    Text(text = "OK")
+                }
+            }
+        )
     }
 }
 
