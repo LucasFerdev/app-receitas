@@ -48,6 +48,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.fiap.recipes.R
 import br.com.fiap.recipes.model.User
+import br.com.fiap.recipes.navigation.Destination
 import br.com.fiap.recipes.repository.SharedPreferenceUserRepository
 import br.com.fiap.recipes.ui.theme.RecipesTheme
 
@@ -72,7 +73,7 @@ fun SignupScreen(navController: NavController) {
             TitleComponent()
             Spacer(modifier = Modifier.height(48.dp))
             UserImage()
-            SignupUserForm()
+            SignupUserForm(navController)
         }
     }
 }
@@ -158,7 +159,7 @@ private fun UserImagePreview() {
 }
 
 @Composable
-fun SignupUserForm(modifier: Modifier = Modifier) {
+fun SignupUserForm(navController: NavController) {
 
     // Variáveis de estado para controlar
     // os valores exibidos nos OutlinedTextFields
@@ -182,11 +183,12 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
 
     // Variável de estado para controlar a exibição da mensagem de erro
     var showDialogError by remember { mutableStateOf(false) }
+    var showDialogSuccess by remember { mutableStateOf(false) }
 
     // Função para verificar se os dados estão corretos
     fun validate(): Boolean{
         isNameError = name.length < 3
-        isEmailError = email.length <3 || Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        isEmailError = email.length < 3 || !Patterns.EMAIL_ADDRESS.matcher(email).matches()
         isPasswordError = password.length < 3
         return !isNameError && !isEmailError && !isPasswordError
     }
@@ -363,6 +365,7 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
                                 email = email
                             )
                         )
+                        showDialogSuccess = true
                     } else {
                         showDialogError = true
                     }
@@ -379,7 +382,27 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
         }
     }
     // caixa de diálogo de sucesso
-
+    if(showDialogSuccess){
+        AlertDialog(
+            onDismissRequest = {showDialogSuccess = false },
+            title = {
+                Text(text = "Success")
+            },
+            text = {
+                Text(text = "Account has been created successfully")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDialogSuccess = false
+                        navController.navigate(Destination.LoginScreen.route)
+                    }
+                ){
+                    Text(text = "OK")
+                }
+            }
+        )
+    }
 
     // caixa de diálogo de erro
     if (showDialogError){
@@ -411,7 +434,7 @@ fun SignupUserForm(modifier: Modifier = Modifier) {
 @Composable
 private fun SignupUserFormPreview() {
     RecipesTheme {
-        SignupUserForm()
+        SignupUserForm(rememberNavController())
     }
 }
 
