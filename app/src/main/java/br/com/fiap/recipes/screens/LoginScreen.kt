@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -40,6 +41,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import br.com.fiap.recipes.R
 import br.com.fiap.recipes.navigation.Destination
+import br.com.fiap.recipes.repository.SharedPreferenceUserRepository
+import br.com.fiap.recipes.repository.UserRepository
 import br.com.fiap.recipes.ui.theme.RecipesTheme
 
 @Composable
@@ -125,6 +128,18 @@ fun LoginForm(navController: NavHostController) {
     var password by remember {
         mutableStateOf("")
     }
+
+    var showPassword by remember {
+        mutableStateOf(false)
+    }
+
+    var authenticateError by remember {
+        mutableStateOf(false)
+    }
+
+    // CRIAR UMA INSTÂNCIA DA CLASSE SharedPreferenceUserRepository
+    val userRepository: UserRepository =
+        SharedPreferenceUserRepository(LocalContext.current)
 
     Column() {
         OutlinedTextField(
