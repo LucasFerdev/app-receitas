@@ -10,14 +10,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -35,6 +40,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -50,9 +57,10 @@ fun LoginScreen(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme
-                .colorScheme
-                .background
+            .background(
+                MaterialTheme
+                    .colorScheme
+                    .background
             )
     ){
         TopEndCard(
@@ -202,25 +210,45 @@ fun LoginForm(navController: NavHostController) {
                 )
             },
             trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.RemoveRedEye,
-                    contentDescription = "E-mail icon",
-                    tint = MaterialTheme.colorScheme.tertiary
-                )
+                val image = if (showPassword) {
+                    Icons.Default.Visibility
+                } else {
+                    Icons.Default.VisibilityOff
+                }
+                IconButton(
+                    onClick = {showPassword = !showPassword}
+                ) {
+                    Icon(
+                        imageVector = image,
+                        contentDescription = "",
+                        tint = MaterialTheme.colorScheme.tertiary
+                    )
+                }
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Done
-            )
+            ),
+            visualTransformation = if (showPassword) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            }
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             onClick = {
-                navController
-                    .navigate(
-                        Destination.HomeScreen
-                            .createRoute(email)
-                    )
+                val authenticate = userRepository.login(email, password)
+                if (authenticate) {
+                    navController
+                        .navigate(
+                            Destination.HomeScreen
+                                .createRoute(email)
+                        )
+                } else {
+                    authenticateError = true
+                }
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -232,6 +260,23 @@ fun LoginForm(navController: NavHostController) {
                 style = MaterialTheme.typography.labelMedium
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        if (authenticateError){
+            Row {
+                Icon(
+                    imageVector = Icons.Default.Error,
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.error
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.authentication_error),
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),

@@ -25,5 +25,6 @@
     <string name="search_by_recipes">Search by recipes</string>
     <string name="categories">Categories</string>
     <string name="newly_added_recipes">Newly added recipes</string>
+    <string name="authentication_error">Authentication error!</string>
     \\ TRADUZIR PARA OS OUTROS IDIOMAS
 </resources>
